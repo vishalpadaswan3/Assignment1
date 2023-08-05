@@ -10,10 +10,10 @@ UserRoute.get("/",async(req,res)=>{
        payload.forEach( async(element) => {
        await users.create(element);
        });  
-    res.send("done")
+    res.status(200).send("ok");
     } catch (error) {
         console.log(error)
-        res.send("error")
+        res.status(500);
     }
       
 })
@@ -23,7 +23,7 @@ UserRoute.delete("/",async(req,res)=>{
         await users.destroy({ where: {} });
         res.send({"msg":"done"})
     } catch (error) {
-     res.send({"msg":"error"})   
+     res.send({"msg":"error"})  ; 
     }
 })
 UserRoute.get("/read",async(req,res)=>{
@@ -33,7 +33,8 @@ UserRoute.get("/read",async(req,res)=>{
         let offset=(page_num-1)*page_size;
         let data=await users.findAll({limit: page_size,
             offset: offset,});
-            res.send(data);
+            let count=await users.count();
+            res.send({"data":data,"page_num":count/10});
     } catch (error) {
         res.send(error);
     }
