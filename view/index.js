@@ -10,16 +10,24 @@ try {
  let res =await fetch(url);
     console.log(loading,res);
     loading=false;
+    alert("50 users are fetched");
 } catch (error) {
     console.log(error);
 }
 })
 delete_button.addEventListener("click",async()=>{
     try {
-        if(!loading){
- await fetch(url,{
+        if(!loading && confirm("you want to delete the user?")){
+        
+let res= await fetch(url,{
         method:"DELETE"
        });
+       let data=await res.json();
+       if(data.msg=="no user"){
+        alert("There is not user avilable");
+       }else {
+        alert("All users are deleted");
+       }
     }else {
         alert("try again later");
     }

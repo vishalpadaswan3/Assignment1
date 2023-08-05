@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    margin: auto;
+    text-align: center;  
+}
+
+
+button{
+    margin: 10px;
+    padding: 5px;
+    border-radius: 40px;
+    border: 0px;
+    background-color: darkcyan;
+    color: white;
+}
+td{
+    padding: 5px;
+    border: .5px dotted black;
+    
+    font-size: 12px;
+}
+th{
+    color: white;
+    padding: 8px;
+    border: .5px dotted black;
+    
+
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+thead{
+    background-color: darkcyan;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.main{
+    display: grid;
+    width: 20vw;
+    margin-top: 30vh;
+}
+#users_details{
+    width: 20vw;
+}
+a{
+    text-decoration: none;
+}
