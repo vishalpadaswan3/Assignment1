@@ -13,12 +13,13 @@ window.onload=async()=>{
 
 async function fetch_data(pages){
     console.log(pages)
-    if(pages<=0 || pages>5){
+    if(pages<=0 || pages>page_max){
         alert("not possible")
     }else {
         page=pages;
     let res=await fetch(`${url}/?page=${pages}`);
     let data=await res.json();
+    page_max=data.page_num;
     display(data.data,data.page_num)
     }
 }
