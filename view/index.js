@@ -2,7 +2,7 @@ let delete_button=document.getElementById("delete_button");
 let fetch_button=document.getElementById("fetch_button");
 let users_details=document.getElementById("users_details");
 let loading=false;
-let url="http://localhost:3000/user/"
+let url="https://cointab-bvef.onrender.com/user/"
 
 fetch_button.addEventListener("click",async()=>{
 try {

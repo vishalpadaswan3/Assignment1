@@ -5,7 +5,7 @@ let input=document.querySelector("input");
 
 let page=1;
 let page_max=5;
-let url="http://localhost:3000/user/read"
+let url="https://cointab-bvef.onrender.com/user/read"
 window.onload=async()=>{
     fetch_data(page);
 }
@@ -90,7 +90,7 @@ function display(data,pages){
 search.addEventListener("click",async()=>{
 let user_name=input.value;
 try {
-    let res=await fetch(`http://localhost:3000/user/search/?username=${user_name}`);
+    let res=await fetch(`https://cointab-bvef.onrender.com/user/search/?username=${user_name}`);
     let data=await res.json();
     console.log(data)
     display(data.data,0);
