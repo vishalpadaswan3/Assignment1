@@ -3,8 +3,11 @@ const { Sequelize } = require("sequelize");
 // host:"database-1.c4wyxfqovg91.eu-north-1.rds.amazonaws.com",
 //     dialect:"mysql"
 // });
-const sequelize = new Sequelize("users", "root", "Sh@nu123", {
-  host: "localhost",
+require("dotenv").config();
+let password=process.env.password;
+let admin_name=process.env.admin_name;
+const sequelize = new Sequelize("users", admin_name, password, {
+  host: "database-2.c4wyxfqovg91.eu-north-1.rds.amazonaws.com",
   dialect: "mysql",
 });
 

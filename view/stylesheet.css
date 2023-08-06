@@ -37,11 +37,17 @@ thead{
 .main{
     display: grid;
     width: 20vw;
-    margin-top: 30vh;
+    margin-top: 20vh;
 }
 #users_details{
     width: 20vw;
 }
 a{
     text-decoration: none;
+}
+h1{
+    margin-top: 10px;
+}
+header{
+margin-top: 20px;
 }
