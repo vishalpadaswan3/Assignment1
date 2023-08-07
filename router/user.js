@@ -1,82 +1,88 @@
-const UserRoute=require("express").Router();
-const url="https://randomuser.me/api/?results=50";
-const fetch=require("node-fetch2");
-const { Op } = require('sequelize');
+const express = require("express");
+const fetch = require("node-fetch");
+const { Op } = require("sequelize");
 
-const users = require("../model/user");
-UserRoute.get("/",async(req,res)=>{
-    try {
-        let res1= await fetch(url);
-        let data=await res1.json();
-        let payload= data.results.map((el)=>{return{"first_name":el.name.first,"last_name":el.name.last,"user_name":el.login.username,"age":el.dob.age,"email":el.email,"phone":el.phone,"picture":el.picture.thumbnail}})
-       payload.forEach( async(element) => {
-       await users.create(element);
-       });  
-    res.status(200).send("ok");
-    } catch (error) {
-        console.log(error)
-        res.status(500);
-    }
-      
-})
+const router = express.Router();
+const externalApiUrl = "https://randomuser.me/api/?results=50";
 
-UserRoute.delete("/",async(req,res)=>{
-    try {
-        let data=await users.count();
-        if(data==0){
-            res.send({"msg":"no user"})
-        }else{
-        await users.destroy({ where: {} });
-        res.send({"msg":"done"})
-        }
-    } catch (error) {
-     res.send({"msg":"error"})  ; 
-    }
-})
-UserRoute.get("/read",async(req,res)=>{
-    try {
-        let page_size=10;
-        let page_num=req.query.page;
-        let offset=(page_num-1)*page_size;
-        let data=await users.findAll({limit: page_size,
-            offset: offset,});
-            let count=await users.count();
-            res.send({"data":data,"page_num":count/10});
-    } catch (error) {
-        res.send(error);
-    }
-})
-UserRoute.get("/search",async(req,res)=>{
-    let username_search=req.query.username;
-    let sort=req.query.sort;
-    console.log(username_search);
-    try {
-        if(username_search){
-            const searchData = await users.findAll({
-                where: {
-                  [Op.or]: {
-                    user_name: {
-                      [Op.like]: `%${username_search}%`,
-                    },
-                  },
-                },
-              });
-              let count=searchData.length;
-              console.log(searchData);
-              res.send({data:searchData,page_num:Math.floor(count/10)});
-        }   else if(sort) {
-        const sortedData = await YourTable.findAll({
-            order: [['first_name', `${sort}`]],
-          });
-          let count=sortedData.length;
-          res.send({data:sortedData,page_num:Math.floor(count/10)}); 
-               }else {
-            res.send({});
-        }
-        
-    } catch (error) {
-        
-    }
-})
+const User = require("../model/user"); // Make sure to import your User model
 
-module.exports={UserRoute}
+router.get("/fetch-users", async (req, res) => {
+  try {
+    const response = await fetch(externalApiUrl);
+    const data = await response.json();
+    const usersData = data.results.map((el) => ({
+      first_name: el.name.first,
+      last_name: el.name.last,
+      user_name: el.login.username,
+      age: el.dob.age,
+      email: el.email,
+      phone: el.phone,
+      picture: el.picture.thumbnail,
+    }));
+    await User.bulkCreate(usersData);
+    res.status(200).send("Users fetched and saved successfully.");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.delete("/delete-users", async (req, res) => {
+  try {
+    const deletedRows = await User.destroy({ where: {} });
+    if (deletedRows > 0) {
+      res.status(200).send({ msg: "All users deleted successfully." });
+    } else {
+      res.status(404).send({ msg: "No users found to delete." });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/read-users", async (req, res) => {
+  try {
+    const pageSize = 10;
+    const pageNum = parseInt(req.query.page) || 1;
+    const offset = (pageNum - 1) * pageSize;
+    const { rows: data, count } = await User.findAndCountAll({
+      limit: pageSize,
+      offset: offset,
+    });
+    res.status(200).send({ data, page_num: Math.ceil(count / pageSize) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/search-users", async (req, res) => {
+  try {
+    const { username, sort } = req.query;
+
+    if (username) {
+      const searchData = await User.findAll({
+        where: {
+          user_name: {
+            [Op.like]: `%${username}%`,
+          },
+        },
+      });
+      res.status(200).send({ data: searchData });
+    } else if (sort) {
+      const sortedData = await User.findAll({
+        order: [["first_name", sort]],
+      });
+      res.status(200).send({ data: sortedData });
+    } else {
+      res.status(400).send({ msg: "Invalid query parameters." });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+module.exports = router;

@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cointab_Assigment</title>
-    <link href="https://fonts.googleapis.com/css2?family=REM:wght@200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./stylesheet.css">
-    <style>
-        body{
-            font-family: "REM", sans-serif;
-            font-weight: 900;
-        background-color: rgb(255, 254, 254);
-              }
-    </style>
-  </head>
-  <body>
-    <header><h1>Cointab Assigment</h1></header>
-    <div class="main">
-    <button id="fetch_button" >Fetch Users</button
-    ><button id="delete_button">Delete users</button
-    ><a href="./userdetails.html"><button id="users_details">User Details</button></a>
-</div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cointab_Assigment</title>
+  <link href="https://fonts.googleapis.com/css2?family=REM:wght@200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./stylesheet.css">
+  <style>
+    body {
+      font-family: "REM", sans-serif;
+      font-weight: 900;
+      background-color: rgb(255, 254, 254);
+    }
+
+    button,
+    #fetch_button {
+      background-color: rgb(106, 157, 201);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="https://www.lifeofpix.com/wp-content/uploads/2018/06/308-name5395-chim-1600x1066.jpg" alt="">
+  </header>
+  <div class="main">
+    <div>
+      <button id="fetch_button">Fetch Users</button>
+    </div>
+    <div>
+      <button id="delete_button">Delete users</button>
+    </div>
+    <div>
+      <a href="./userdetails.html"><button id="users_details" style="background-color: black;"> User
+          Details</button></a>
+    </div>
+  </div>
+</body>
+
 </html>
 <script src="./index.js"></script>

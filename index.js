@@ -7,7 +7,7 @@ require("dotenv").config();
 let port=process.env.port;
 
 app.get("/",(req,res)=>{
-    res.send("Hello Vipin!!!");
+    res.send("Backend is working");
 })
 app.use(cors());
 app.use(express.json());

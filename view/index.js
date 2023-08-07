@@ -10,7 +10,7 @@ try {
  let res =await fetch(url);
     console.log(loading,res);
     loading=false;
-    alert("50 users are fetched");
+    alert("SUCCESS");
 } catch (error) {
     console.log(error);
 }
@@ -24,12 +24,12 @@ let res= await fetch(url,{
        });
        let data=await res.json();
        if(data.msg=="no user"){
-        alert("There is not user avilable");
+        alert("No user");
        }else {
-        alert("All users are deleted");
+        alert("Deleted SUCCESSFULLY");
        }
     }else {
-        alert("try again later");
+        alert("ERROR");
     }
         
     } catch (error) {

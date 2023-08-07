@@ -14,7 +14,7 @@ window.onload=async()=>{
 async function fetch_data(pages){
     console.log(pages)
     if(pages<=0 || pages>page_max){
-        alert("not possible")
+        alert("Error")
     }else {
         page=pages;
     let res=await fetch(`${url}/?page=${pages}`);
@@ -98,5 +98,4 @@ try {
 } catch (error) {
     console.log("error");
 }
-
 })
