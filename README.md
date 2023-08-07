@@ -8,7 +8,7 @@ This project aims to showcase a user management system with features to fetch, d
 The application is deployed at: [https://64d0c6c3dad64a58572bac32--poetic-gingersnap-0bfd04.netlify.app/]
 
 ## Video Walkthrough of the Project
-[Include video walkthrough link here]
+[https://drive.google.com/file/d/1UByCkdMzk4qcZbYrD2vJq4o7RF8V5d_E/view?usp=drive_link]
 
 ## Features
 - Fetch and display user data from an external API.
